@@ -14,6 +14,7 @@ export const nav = [
   { href: "/#finding", label: "Sample finding" },
   { href: "/#method", label: "How it works" },
   { href: "/#handlers", label: "Team" },
+  { href: "/tools/", label: "Free tools" },
   { href: "/#faq", label: "FAQ" },
 ];
 

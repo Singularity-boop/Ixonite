@@ -6,6 +6,7 @@ import { BookingSection, Faq, JsonLd, SiteFooter, SiteHeader, Tape, faqJsonLd } 
 import { Alert, ArrowRight, Check, Download, LinkedIn, SealClosed } from "./components/icons";
 import { custodyLog, homeFaqs, leadService, otherServices, team } from "./content";
 import { servicePath } from "./services-data";
+import { toolPath, tools } from "./tools-data";
 
 export default function Home() {
   return (
@@ -347,6 +348,31 @@ HTTP/1.1 200 OK
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section id="tools" className="section" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <div className="section-head">
+              <h2 className="d-lg">Free security checks</h2>
+              <p className="lede">
+                Run the quick checks our testers start with. Free, instant, and nothing you enter is
+                stored.
+              </p>
+            </div>
+            <ul className="other-svcs other-svcs-2">
+              {tools.map((t) => (
+                <li key={t.slug}>
+                  <Link href={toolPath(t)}>
+                    <span>
+                      {t.name}
+                      <small>{t.short}</small>
+                    </span>
+                    <ArrowRight />
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 

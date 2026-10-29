@@ -27,7 +27,8 @@ function field($k, $max = 2000) {
   return mb_substr($v, 0, $max);
 }
 
-$type  = field('type', 40) === 'sample-report' ? 'sample-report' : 'booking';
+$type  = field('type', 40);
+if (!in_array($type, ['booking', 'sample-report', 'tool-report'], true)) $type = 'booking';
 $email = field('email', 200);
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -37,7 +38,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 $lines = [
-  'Type:     ' . ($type === 'booking' ? 'Scoping call request' : 'Sample report download'),
+  'Type:     ' . ['booking' => 'Scoping call request', 'sample-report' => 'Sample report download', 'tool-report' => 'Free tool results download'][$type],
   'Email:    ' . $email,
 ];
 if ($type === 'booking') {
@@ -49,12 +50,21 @@ if ($type === 'booking') {
   $lines[] = '';
   $lines[] = field('message', 5000);
 }
+if ($type === 'tool-report') {
+  $lines[] = 'Tool:     ' . field('tool', 100);
+  $lines[] = 'Target:   ' . field('target', 300);
+  $lines[] = 'Grade:    ' . field('grade', 10);
+  $lines[] = 'Summary:  ' . field('summary', 500);
+}
 $lines[] = '';
 $lines[] = 'Sent ' . gmdate('Y-m-d H:i') . ' UTC from ' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
 
-$subject = $type === 'booking'
-  ? 'Scoping call request from ' . $email
-  : 'Sample report downloaded by ' . $email;
+$subject = [
+  'booking' => 'Scoping call request from ' . $email,
+  'sample-report' => 'Sample report downloaded by ' . $email,
+  'tool-report' => 'Tool lead: ' . field('tool', 100) . ' on ' . field('target', 100) . ' by ' . $email,
+][$type];
+$subject = preg_replace('/[\r\n]+/', ' ', $subject); // no header injection
 
 $headers = [
   'From: Ixonite website <' . $FROM . '>',

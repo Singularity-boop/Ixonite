@@ -4,6 +4,7 @@ import IntakeForm from "./IntakeForm";
 import { ArrowRight, Download, Mark } from "./icons";
 import { CONTACT_EMAIL, SAMPLE_REPORT_URL, nav } from "../content";
 import { services, servicePath } from "../services-data";
+import { toolPath, tools } from "../tools-data";
 
 export function Tape({ id, words }: { id: string; words: string[] }) {
   const run = Array.from({ length: 4 }, () => words).flat();
@@ -53,6 +54,18 @@ export function SiteHeader() {
           <a href="#intake" className="btn btn-primary head-cta">
             Book a call
           </a>
+          <details className="menu">
+            <summary aria-label="Menu">
+              <span aria-hidden />
+            </summary>
+            <nav aria-label="Main (mobile)">
+              {nav.map((n) => (
+                <Link key={n.href} href={n.href}>
+                  {n.label}
+                </Link>
+              ))}
+            </nav>
+          </details>
         </div>
       </header>
     </>
@@ -89,6 +102,16 @@ export function SiteFooter() {
               {services.map((s) => (
                 <li key={s.slug}>
                   <Link href={servicePath(s)}>{s.name}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <nav aria-label="Free tools">
+            <p className="foot-h">Free tools</p>
+            <ul>
+              {tools.map((t) => (
+                <li key={t.slug}>
+                  <Link href={toolPath(t)}>{t.name}</Link>
                 </li>
               ))}
             </ul>
