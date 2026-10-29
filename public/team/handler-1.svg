@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- PLACEHOLDER portrait: replace with a real photo (square, 800x800 or larger) -->
+  <rect width="400" height="400" fill="#c9cfc6"/>
+  <circle cx="200" cy="160" r="72" fill="#121316" opacity="0.82"/>
+  <path d="M60 400c10-90 70-140 140-140s130 50 140 140z" fill="#121316" opacity="0.82"/>
+  <text x="20" y="34" font-family="Courier New, monospace" font-size="18" font-weight="700" fill="#121316">PHOTO PENDING</text>
+</svg>
