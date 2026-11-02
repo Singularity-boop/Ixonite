@@ -334,16 +334,26 @@ HTTP/1.1 200 OK
                 <article className="badge" key={i} data-badge>
                   <span className="badge-slot" aria-hidden />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img className="badge-photo" src={m.photo} alt={`Photo of ${m.name}`} width={400} height={400} loading="lazy" />
+                  <img className="badge-photo" src={m.photo} alt={`${m.name}, ${m.role}`} width={800} height={800} loading="lazy" />
                   <div>
                     <h3>{m.name}</h3>
                     <p>{m.role}</p>
                   </div>
+                  {m.credentials.length > 0 && (
+                    <ul className="badge-creds" aria-label="Credentials">
+                      {m.credentials.map((c) => (
+                        <li key={c}>{c}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {m.bio && <p className="badge-bio">{m.bio}</p>}
                   <div className="badge-strip">
                     <span className="tnum">ID IXN-{String(i + 1).padStart(3, "0")}</span>
-                    <a className="badge-li" href={m.linkedin} target="_blank" rel="noopener noreferrer">
-                      <LinkedIn /> <span>LinkedIn</span>
-                    </a>
+                    {m.linkedin && (
+                      <a className="badge-li" href={m.linkedin} target="_blank" rel="noopener noreferrer">
+                        <LinkedIn /> <span>LinkedIn</span>
+                      </a>
+                    )}
                   </div>
                 </article>
               ))}

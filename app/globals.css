@@ -1069,7 +1069,7 @@ textarea {
 /* ---------- Handlers (team badges) ---------- */
 .badges {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(16px, 2vw, 28px);
 }
 @media (max-width: 1040px) {
@@ -1126,8 +1126,8 @@ textarea {
   width: 100%;
   object-fit: cover;
   background: var(--paper-2);
-  border: 1px solid var(--rule-strong);
-  filter: grayscale(1) contrast(1.05);
+  border: 1px solid var(--ink);
+  background: #0b0c0e;
 }
 .badge-strip {
   display: flex;
@@ -1927,4 +1927,28 @@ textarea {
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+.badge-creds {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.badge-creds li {
+  font-family: var(--font-t);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+}
+.badge .badge-bio {
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.badge-strip {
+  margin-top: auto;
 }

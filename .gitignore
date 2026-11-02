@@ -43,3 +43,8 @@ next-env.d.ts
 # impeccable review captures
 /.impeccable/review/
 
+
+# original team photos (only the edited portraits ship)
+/public/team/Talha.jpeg
+/public/team/hamza.jpeg
+/public/team/shiraz.jpg

@@ -30,12 +30,38 @@ export const custodyLog = [
   { when: "After fixes", handler: "Test team", action: "Retest the fixed findings and issue an updated report for your auditors and customers." },
 ];
 
-// PLACEHOLDER: names, roles, photos and LinkedIn URLs.
-export const team = [
-  { name: "Team member name", role: "Founder & lead penetration tester", photo: "/team/handler-1.svg", linkedin: "https://www.linkedin.com/" },
-  { name: "Team member name", role: "Senior web application tester", photo: "/team/handler-2.svg", linkedin: "https://www.linkedin.com/" },
-  { name: "Team member name", role: "Network & cloud tester", photo: "/team/handler-3.svg", linkedin: "https://www.linkedin.com/" },
-  { name: "Team member name", role: "SOC lead", photo: "/team/handler-4.svg", linkedin: "https://www.linkedin.com/" },
+// Portraits restyled in Google Flow from the team's own photos.
+// PLACEHOLDER: add each person's LinkedIn profile URL; the link shows once set.
+export const team: {
+  name: string;
+  role: string;
+  credentials: string[];
+  bio?: string;
+  photo: string;
+  linkedin: string;
+}[] = [
+  {
+    name: "Hamza Farooqui",
+    role: "Red Team Lead & Sr. Penetration Tester",
+    credentials: ["OSCP+", "CySA+", "MSc Cybersecurity"],
+    photo: "/team/hamza-farooqui.jpg",
+    linkedin: "",
+  },
+  {
+    name: "Shiraz Ali Khan",
+    role: "Sr. Penetration Tester",
+    credentials: [],
+    bio: "Hands-on penetration tester focused on web application and infrastructure assessments.",
+    photo: "/team/shiraz-ali-khan.jpg",
+    linkedin: "",
+  },
+  {
+    name: "Muhammad Talha",
+    role: "Security Engineer",
+    credentials: ["MSc Cybersecurity"],
+    photo: "/team/talha-muhammad.jpg",
+    linkedin: "",
+  },
 ];
 
 export const serviceOptions = [...services.map((s) => s.formOption), "Not sure yet"];
