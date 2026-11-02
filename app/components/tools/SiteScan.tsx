@@ -105,7 +105,7 @@ export default function SiteScan() {
     setResult(null);
 
     const [scan, obs] = await Promise.all([
-      fetch(`/scan.php?host=${encodeURIComponent(host)}`)
+      fetch(`/api/scan/?host=${encodeURIComponent(host)}`)
         .then(async (r) => (r.headers.get("content-type")?.includes("json") ? ((await r.json()) as Scan) : null))
         .catch(() => null),
       fetch(`https://observatory-api.mdn.mozilla.net/api/v2/scan?host=${encodeURIComponent(host)}`, { method: "POST" })

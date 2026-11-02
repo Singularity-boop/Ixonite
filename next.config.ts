@@ -1,10 +1,8 @@
 import type { NextConfig } from "next";
 
-// Static export: `npm run build` writes plain HTML/CSS/JS to `out/`,
-// which uploads as-is to shared hosting. The contact form posts to
-// public/contact.php, which runs on the host's PHP.
+// Runs as a Node.js app (Hostinger Node hosting): `npm run build` then
+// `npm start`. Forms and the website scanner use the routes in app/api.
 const nextConfig: NextConfig = {
-  output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
   experimental: {
