@@ -31,7 +31,6 @@ export const custodyLog = [
 ];
 
 // Portraits restyled in Google Flow from the team's own photos.
-// PLACEHOLDER: add each person's LinkedIn profile URL; the link shows once set.
 export const team: {
   name: string;
   role: string;
@@ -45,7 +44,7 @@ export const team: {
     role: "Red Team Lead & Sr. Penetration Tester",
     credentials: ["OSCP+", "CySA+", "MSc Cybersecurity"],
     photo: "/team/hamza-farooqui.jpg",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/hamza-farooqi-a87509204/",
   },
   {
     name: "Shiraz Ali Khan",
@@ -53,14 +52,14 @@ export const team: {
     credentials: [],
     bio: "Hands-on penetration tester focused on web application and infrastructure assessments.",
     photo: "/team/shiraz-ali-khan.jpg",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/shiraz-ali-khan-ethical-hacker/",
   },
   {
     name: "Muhammad Talha",
     role: "Security Engineer",
     credentials: ["MSc Cybersecurity"],
     photo: "/team/talha-muhammad.jpg",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/muhammad-talha-10b9bb1a5/",
   },
 ];
 
