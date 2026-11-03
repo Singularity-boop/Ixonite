@@ -39,10 +39,10 @@ export async function downloadReport(r: ToolResult) {
   };
 
   header();
-  para("Security check results", 22, INK, true);
+  para(r.title ?? "Security check results", 22, INK, true);
   y += 4;
-  para(`Target: ${r.target}`, 11, MUTED);
-  para(`Checked: ${new Date().toUTCString()}`, 11, MUTED);
+  para(`${r.title ? "Scope" : "Target"}: ${r.target}`, 11, MUTED);
+  para(`${r.title ? "Date" : "Checked"}: ${new Date().toUTCString()}`, 11, MUTED);
   y += 10;
   if (r.grade) {
     doc.setFillColor(...MARKER).rect(M, y - 4, 90, 40, "F");

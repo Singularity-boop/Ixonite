@@ -15,7 +15,7 @@ export type ToolPage = {
   faqs: { q: string; a: string }[];
 };
 
-export const tools: ToolPage[] = [
+const allTools: ToolPage[] = [
   {
     slug: "email-security-checker",
     name: "Email spoofing checker",
@@ -106,7 +106,120 @@ export const tools: ToolPage[] = [
       { q: "What does alg: none mean?", a: "It means the token is unsigned. If a server accepts alg none, anyone can forge tokens and log in as any user. It should always be rejected." },
     ],
   },
+  {
+    slug: "penetration-testing-cost-calculator",
+    name: "Pentest cost calculator",
+    short: "Estimate how many tester-days your penetration test needs, then turn it into a fixed quote.",
+    seoTitle: "Penetration Testing Cost Calculator: Estimate Your Pentest",
+    description:
+      "Estimate the cost of a penetration test from your scope: web app, API, mobile app and network. See tester-days, timeline and what drives pentest pricing. Free.",
+    h1: "Penetration testing cost calculator",
+    intro:
+      "Pick what needs testing to see how many tester-days a manual penetration test takes and how long it runs. Pentest prices are effort times a day rate, so effort is the number behind every quote.",
+    privacy: "The estimate is calculated in your browser. Nothing is sent unless you ask for the PDF or a quote.",
+    cta: {
+      title: "Estimates are a start. Our quotes are fixed.",
+      body: "On a 30-minute scoping call we confirm the scope with you and send a fixed price that won't change once testing starts.",
+      service: "Not sure yet",
+    },
+    faqs: [
+      { q: "How much does a penetration test cost?", a: "Pentest pricing is effort multiplied by a day rate. The effort depends on what is in scope: the size of the application, the number of user roles, API endpoints, IP addresses and hosts. A small web app can need less than a week of testing, while a large app with several roles and an API can need several weeks." },
+      { q: "What makes a pentest cost more?", a: "More pages, user roles, API endpoints and hosts all add testing time. Every user role needs its own access control testing, which is where many serious bugs hide. Compliance work, such as PCI DSS segmentation testing, adds days too." },
+      { q: "How accurate is this estimate?", a: "It gives a starting range based on typical engagements. The real effort depends on details like how complex the business logic is, whether test accounts are ready, and which environment is tested. The scoping call turns it into a fixed quote." },
+      { q: "Why not just run a cheaper automated scan?", a: "Scanners find known, surface-level issues. They can't tell whether one customer can read another customer's data, or whether your business logic can be abused. That's why auditors and enterprise customers usually ask for a manual penetration test." },
+    ],
+  },
+  {
+    slug: "cvss-calculator",
+    name: "CVSS 3.1 calculator",
+    short: "Score a vulnerability with CVSS 3.1, get the vector string, and share the result as a link.",
+    seoTitle: "CVSS 3.1 Calculator: Score Vulnerabilities & Vector Strings",
+    description:
+      "Free CVSS v3.1 calculator. Pick the base and temporal metrics to get the score, severity and vector string, or paste a vector to decode it. Plain-English help for every metric.",
+    h1: "CVSS 3.1 calculator",
+    intro:
+      "Choose each metric to score a vulnerability, or paste a vector string to decode one. Every option is explained in plain English, and the page link updates so you can share the exact score.",
+    privacy: "Scores are calculated in your browser with the FIRST CVSS v3.1 formulas. Nothing is sent or stored.",
+    cta: {
+      title: "A score is only as good as the finding",
+      body: "Every finding in our reports comes with a CVSS score, proof that it's exploitable, and a specific fix your developers can act on.",
+      service: "Web application pentest",
+    },
+    faqs: [
+      { q: "What is CVSS?", a: "The Common Vulnerability Scoring System, maintained by FIRST, rates how severe a vulnerability is on a scale from 0 to 10. The score is built from metrics such as how the attack is carried out, which privileges it needs, and its impact on confidentiality, integrity and availability." },
+      { q: "What do CVSS scores mean?", a: "0.0 is None, 0.1 to 3.9 is Low, 4.0 to 6.9 is Medium, 7.0 to 8.9 is High and 9.0 to 10.0 is Critical." },
+      { q: "What is a CVSS vector string?", a: "A compact record of every metric choice, such as CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H. It lets anyone recalculate and check a score, so it should always be published next to the number." },
+      { q: "What does Scope: Changed mean?", a: "The vulnerability lets an attacker affect something beyond the vulnerable component itself. Cross-site scripting that runs in users' browsers and escaping a container to its host are common examples." },
+      { q: "Does this calculator support CVSS 4.0?", a: "Not yet. It scores CVSS 3.1, which is still widely used in pentest reports, scanners and vulnerability databases. If you paste a 4.0 vector, it tells you so." },
+    ],
+  },
+  {
+    slug: "email-header-analyzer",
+    name: "Email header analyzer",
+    short: "Paste an email's headers to trace its route and check SPF, DKIM, DMARC and phishing signs.",
+    seoTitle: "Email Header Analyzer: Trace Emails & Spot Phishing",
+    description:
+      "Paste raw email headers to see every server the email passed through, its SPF, DKIM and DMARC results, and spoofing signs like a mismatched Reply-To. Runs in your browser.",
+    h1: "Email header analyzer",
+    intro:
+      "Paste the full headers of a suspicious email. You'll see the path it took, whether it passed SPF, DKIM and DMARC, and the tricks phishing emails use, like a fake display name or a different reply address.",
+    privacy: "Headers are parsed in your browser with JavaScript. They are never uploaded, stored or sent to us.",
+    cta: {
+      title: "One convincing email is all it takes",
+      body: "We test how far an attacker gets after the click: exposed services, weak authentication and access to data that should be off-limits.",
+      service: "Not sure yet",
+    },
+    faqs: [
+      { q: "How do I find an email's headers?", a: "In Gmail, open the email, click the three-dot menu and choose Show original. In Outlook, open the email and choose View, then View message details (in older desktop versions, File, then Properties). In Apple Mail, choose View, then Message, then All Headers." },
+      { q: "How do I read Received headers?", a: "Each mail server adds a Received line at the top as the email passes through, so the bottom line is where the email started and the top one is your own mail server. This tool puts them in order and shows the delay at each hop." },
+      { q: "What does DMARC fail mean?", a: "The domain in the visible From address didn't match a domain that passed SPF or DKIM. Legitimate email can fail when it's forwarded or misconfigured, but it's also exactly what spoofed email looks like." },
+      { q: "Can email headers be faked?", a: "Anything added before the email reached a server you trust can be forged, including fake Received lines. The Authentication-Results header added by your own mail server is the part to rely on." },
+    ],
+  },
+  {
+    slug: "password-generator",
+    name: "Password generator",
+    short: "Create strong random passwords or memorable passphrases, generated securely in your browser.",
+    seoTitle: "Strong Password Generator: Random Passwords & Passphrases",
+    description:
+      "Generate strong random passwords or easy-to-remember passphrases. Choose the length and characters, and see the entropy and crack time. Runs entirely in your browser.",
+    h1: "Strong password generator",
+    intro:
+      "Create a random password or a passphrase made of real words. Choose the length and character types, and see how long it would take to crack. Nothing you generate leaves this page.",
+    privacy:
+      "Passwords are generated in your browser with the Web Crypto secure random source and never sent anywhere. Passphrases use the EFF large wordlist (7,776 words, CC BY 3.0).",
+    cta: {
+      title: "Strong passwords don't fix broken logins",
+      body: "Our testers check the login, password reset and session handling in your real applications, the places where account takeovers actually happen.",
+      service: "Web application pentest",
+    },
+    faqs: [
+      { q: "Is it safe to use an online password generator?", a: "This one generates passwords in your browser with your device's secure random number generator. Nothing is sent to a server, so the password exists only on your screen until you save it." },
+      { q: "How long should a password be?", a: "At least 16 random characters for important accounts, or a passphrase of 5 to 6 random words. Length adds far more strength than swapping letters for symbols." },
+      { q: "Passphrase or random characters?", a: "Both are strong when they are long and random. Passphrases are easier to type and remember, so they suit the few passwords you must memorize, like your password manager's. Use random characters for everything stored in the manager." },
+      { q: "What is password entropy?", a: "A measure of how unpredictable a password is, in bits. Each extra bit doubles the number of guesses an attacker needs. Around 80 bits or more is very strong against offline cracking." },
+    ],
+  },
 ];
+
+// Display order on the hub, home page, footer and "More free tools".
+const ORDER = [
+  "penetration-testing-cost-calculator",
+  "website-security-checker",
+  "email-security-checker",
+  "email-header-analyzer",
+  "password-checker",
+  "password-generator",
+  "jwt-decoder",
+  "cvss-calculator",
+];
+
+export const tools: ToolPage[] = ORDER.map((slug) => {
+  const t = allTools.find((x) => x.slug === slug);
+  if (!t) throw new Error(`Unknown tool slug in ORDER: ${slug}`);
+  return t;
+});
+if (tools.length !== allTools.length) throw new Error("Every tool must be listed in ORDER.");
 
 export const toolBySlug = (slug: string) => tools.find((t) => t.slug === slug);
 export const toolPath = (t: { slug: string }) => `/tools/${t.slug}/`;

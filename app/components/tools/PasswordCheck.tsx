@@ -1,7 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { ArrowRight } from "../icons";
+import { STRENGTH_LABELS, crackSeconds, humanTime, randomInt, strengthScore } from "./random";
 
 const COMMON = new Set(
   "password,123456,123456789,qwerty,12345678,111111,1234567,iloveyou,admin,welcome,monkey,dragon,letmein,football,baseball,abc123,sunshine,princess,master,shadow,superman,trustno1,passw0rd,password1,qwerty123,000000,654321,michael,jessica,charlie,ashley,login,starwars,hello,freedom,whatever,qazwsx,zaq12wsx,computer,secret,summer,winter,spring,autumn,pakistan,india,london,cricket,lovely,flower,hunter,killer,soccer,batman,access,mustang,changeme,default,test,guest,root,user,company,office,ixonite".split(","),
@@ -45,32 +47,7 @@ function estimate(pw: string) {
   }
   if (pw.length < 12) issues.push("Shorter than 12 characters. Length matters more than symbols.");
   bits = Math.max(0, bits);
-
-  // Offline attack on a fast hash at 10 billion guesses per second.
-  const seconds = Math.pow(2, bits) / 2 / 1e10;
-  const score = bits < 28 ? 0 : bits < 40 ? 1 : bits < 60 ? 2 : bits < 80 ? 3 : 4;
-  return { bits: Math.round(bits), seconds, score, issues };
-}
-
-function human(seconds: number) {
-  if (seconds < 1) return "instantly";
-  const units: [number, string][] = [
-    [31536000 * 100, "centuries"],
-    [31536000, "years"],
-    [2592000, "months"],
-    [86400, "days"],
-    [3600, "hours"],
-    [60, "minutes"],
-    [1, "seconds"],
-  ];
-  if (seconds > 31536000 * 1e6) return "millions of years";
-  for (const [s, name] of units) {
-    if (seconds >= s) {
-      const n = Math.round(seconds / s);
-      return name === "centuries" ? `${n.toLocaleString()} centuries` : `${n.toLocaleString()} ${name}`;
-    }
-  }
-  return "instantly";
+  return { bits: Math.round(bits), seconds: crackSeconds(bits), score: strengthScore(bits), issues };
 }
 
 async function sha1Hex(s: string) {
@@ -92,14 +69,6 @@ async function breachCount(pw: string) {
   return 0;
 }
 
-function randomInt(max: number) {
-  const a = new Uint32Array(1);
-  const limit = Math.floor(0x100000000 / max) * max;
-  do crypto.getRandomValues(a);
-  while (a[0] >= limit);
-  return a[0] % max;
-}
-
 function generate(kind: "phrase" | "chars") {
   if (kind === "phrase") {
     const words = Array.from({ length: 5 }, () => WORDS[randomInt(WORDS.length)]);
@@ -108,8 +77,6 @@ function generate(kind: "phrase" | "chars") {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*-_=+?";
   return Array.from({ length: 20 }, () => chars[randomInt(chars.length)]).join("");
 }
-
-const LABELS = ["Very weak", "Weak", "Fair", "Strong", "Very strong"];
 
 export default function PasswordCheck() {
   const [pw, setPw] = useState("");
@@ -169,10 +136,10 @@ export default function PasswordCheck() {
           </div>
           <div className="results-head" style={{ borderBottom: 0 }}>
             <div>
-              <p className="results-target">{LABELS[est.score]}</p>
+              <p className="results-target">{STRENGTH_LABELS[est.score]}</p>
               <p className="results-summary">
                 An attacker with a stolen password database could crack this{" "}
-                <b>{est.seconds < 1 ? "instantly" : `in about ${human(est.seconds)}`}</b>.
+                <b>{est.seconds < 1 ? "instantly" : `in about ${humanTime(est.seconds)}`}</b>.
               </p>
               <p className="results-counts typed tnum">≈ {est.bits} bits of entropy</p>
             </div>
@@ -223,7 +190,10 @@ export default function PasswordCheck() {
       <div className="gen">
         <div>
           <h3 className="d-md">Need a better one?</h3>
-          <p>Generated in your browser with a secure random source. Store it in a password manager.</p>
+          <p>
+            Generated in your browser with a secure random source. Store it in a password manager. Want to
+            choose the length and characters? Use the <Link href="/tools/password-generator/">password generator</Link>.
+          </p>
         </div>
         <div className="gen-row">
           <button type="button" className="btn" onClick={() => (setGenerated(generate("phrase")), setCopied(false))}>

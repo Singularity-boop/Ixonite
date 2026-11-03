@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "./icons";
 import { CONTACT_EMAIL, serviceOptions } from "../content";
-import { EMAIL_RE, PREFILL_EVENT, sendForm } from "./submit";
+import { EMAIL_RE, PREFILL_EVENT, sendForm, type PrefillDetail } from "./submit";
 
 type Errors = Partial<Record<"name" | "email", string>>;
 
@@ -14,9 +15,19 @@ export default function IntakeForm({ defaultService }: { defaultService?: string
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
+    // Other parts of the page can fill in the form: the hero email field,
+    // or a tool handing over a scope (service + message).
     const onPrefill = (e: Event) => {
-      const value = (e as CustomEvent<{ email: string }>).detail?.email;
-      if (value) setEmail(value);
+      const detail = (e as CustomEvent<PrefillDetail>).detail ?? {};
+      if (detail.email) setEmail(detail.email);
+      const form = formRef.current;
+      if (!form) return;
+      const service = form.elements.namedItem("service");
+      if (detail.service && service instanceof HTMLSelectElement && serviceOptions.includes(detail.service)) {
+        service.value = detail.service;
+      }
+      const message = form.elements.namedItem("message");
+      if (detail.message && message instanceof HTMLTextAreaElement) message.value = detail.message;
     };
     window.addEventListener(PREFILL_EVENT, onPrefill);
     return () => window.removeEventListener(PREFILL_EVENT, onPrefill);
@@ -146,7 +157,9 @@ export default function IntakeForm({ defaultService }: { defaultService?: string
         <button className="btn btn-primary" type="submit" disabled={state === "sending"}>
           {state === "sending" ? "Sending…" : "Request the call"} <ArrowRight />
         </button>
-        <p>We reply within one working day. Your details go to our team only.</p>
+        <p>
+          We reply within one working day. Your details go to our team only (<Link href="/privacy/">privacy policy</Link>).
+        </p>
       </div>
       {state === "failed" && (
         <p className="err full" role="alert">

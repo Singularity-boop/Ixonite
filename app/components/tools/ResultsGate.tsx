@@ -7,7 +7,15 @@ import type { ToolResult } from "./results";
 
 // Email capture in front of the PDF of a tool's results. Like the sample
 // report, the download never depends on the mailer succeeding.
-export default function ResultsGate({ result }: { result: ToolResult }) {
+export default function ResultsGate({
+  result,
+  title = "Get these results as a PDF",
+  body = "To share with your team or developers. We'll also email you if we spot anything worth a closer look.",
+}: {
+  result: ToolResult;
+  title?: string;
+  body?: string;
+}) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "done" | "invalid">("idle");
 
@@ -34,8 +42,8 @@ export default function ResultsGate({ result }: { result: ToolResult }) {
   return (
     <form className="gate" onSubmit={onSubmit} noValidate>
       <div>
-        <h3 className="d-md">Get these results as a PDF</h3>
-        <p>To share with your team or developers. We&apos;ll also email you if we spot anything worth a closer look.</p>
+        <h3 className="d-md">{title}</h3>
+        <p>{body}</p>
       </div>
       <div className="bag-form" style={{ marginTop: 0 }}>
         <label htmlFor="gate-email" className="sr-only">

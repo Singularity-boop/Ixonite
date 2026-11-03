@@ -48,3 +48,6 @@ next-env.d.ts
 /public/team/Talha.jpeg
 /public/team/hamza.jpeg
 /public/team/shiraz.jpg
+
+# local archive, too large for GitHub
+/AGENTS.zip

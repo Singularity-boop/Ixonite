@@ -15,3 +15,4 @@ export async function sendForm(data: Record<string, string>): Promise<boolean> {
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export const PREFILL_EVENT = "ixn:prefill";
+export type PrefillDetail = { email?: string; service?: string; message?: string };

@@ -4,9 +4,13 @@ import { notFound } from "next/navigation";
 import Motion from "../../components/Motion";
 import { BookingSection, Faq, JsonLd, SiteFooter, SiteHeader, faqJsonLd } from "../../components/Chrome";
 import { ArrowRight, Download } from "../../components/icons";
+import CvssCalculator from "../../components/tools/CvssCalculator";
+import EmailHeaders from "../../components/tools/EmailHeaders";
 import EmailSecurity from "../../components/tools/EmailSecurity";
 import JwtDecoder from "../../components/tools/JwtDecoder";
 import PasswordCheck from "../../components/tools/PasswordCheck";
+import PasswordGenerator from "../../components/tools/PasswordGenerator";
+import PentestEstimator from "../../components/tools/PentestEstimator";
 import SiteScan from "../../components/tools/SiteScan";
 import { SAMPLE_REPORT_URL, SITE_NAME, SITE_URL } from "../../content";
 import { OG_IMAGE } from "../../seo";
@@ -17,6 +21,10 @@ const widgets: Record<string, () => React.ReactNode> = {
   "password-checker": () => <PasswordCheck />,
   "website-security-checker": () => <SiteScan />,
   "jwt-decoder": () => <JwtDecoder />,
+  "penetration-testing-cost-calculator": () => <PentestEstimator />,
+  "cvss-calculator": () => <CvssCalculator />,
+  "email-header-analyzer": () => <EmailHeaders />,
+  "password-generator": () => <PasswordGenerator />,
 };
 
 export const dynamicParams = false;

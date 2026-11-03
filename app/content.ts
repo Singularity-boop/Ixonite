@@ -9,6 +9,19 @@ export const SITE_NAME = "Ixonite";
 export const CONTACT_EMAIL = "contact@ixonit.com"; // PLACEHOLDER address
 export const SAMPLE_REPORT_URL = "/sample-pentest-report.pdf"; // PLACEHOLDER file
 
+// Pentest cost calculator: set a day rate to show price ranges next to the
+// effort estimate, e.g. { amount: 800, currency: "USD" }. While it is null
+// the calculator shows tester-days and points to a fixed quote instead.
+export const PENTEST_DAY_RATE: { amount: number; currency: string } | null = null; // PLACEHOLDER
+
+// Google Search Console. Easiest: verify the domain with a DNS TXT record in
+// Hostinger and leave this empty. For the "HTML tag" method instead, paste
+// only the content value of the tag Google gives you, e.g. "AbC123...".
+export const GOOGLE_SITE_VERIFICATION = "";
+
+// Shown on the privacy policy. Update whenever the policy changes.
+export const PRIVACY_UPDATED = "2 November 2026";
+
 export const nav = [
   { href: "/#exhibits", label: "Services" },
   { href: "/#finding", label: "Sample finding" },

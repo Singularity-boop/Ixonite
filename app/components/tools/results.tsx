@@ -13,6 +13,7 @@ export type Check = {
 
 export type ToolResult = {
   tool: string;
+  title?: string; // PDF heading; defaults to "Security check results"
   target: string;
   grade?: string;
   summary: string;
@@ -56,9 +57,11 @@ export function ResultList({ result }: { result: ToolResult }) {
         <div>
           <p className="results-target typed">{result.target}</p>
           <p className="results-summary">{result.summary}</p>
-          <p className="results-counts typed tnum">
-            {counts.pass} pass · {counts.warn} warning · {counts.fail} fail
-          </p>
+          {counts.pass + counts.warn + counts.fail > 0 && (
+            <p className="results-counts typed tnum">
+              {counts.pass} pass · {counts.warn} warning · {counts.fail} fail
+            </p>
+          )}
         </div>
       </div>
       <ul className="checks">

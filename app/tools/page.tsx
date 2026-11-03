@@ -7,9 +7,9 @@ import { SITE_NAME, SITE_URL } from "../content";
 import { OG_IMAGE } from "../seo";
 import { toolPath, tools } from "../tools-data";
 
-const title = "Free Cybersecurity Tools: Email, Password, Website & JWT Checks";
+const title = "Free Cybersecurity Tools: Pentest Cost, CVSS, Email & Password";
 const description =
-  "Free security tools from Ixonite's penetration testers: check SPF, DMARC and DKIM, test passwords against breaches, scan website security headers and SSL, and decode JWTs.";
+  "Free security tools from Ixonite's penetration testers: estimate pentest cost, score CVSS, check SPF, DMARC and DKIM, analyze email headers, generate and test passwords, scan websites and decode JWTs.";
 
 export const metadata: Metadata = {
   title,

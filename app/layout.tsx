@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
+import { connection } from "next/server";
 import { Big_Shoulders, Public_Sans, Courier_Prime } from "next/font/google";
 import { JsonLd } from "./components/Chrome";
-import { CONTACT_EMAIL, SITE_NAME, SITE_URL } from "./content";
+import { CONTACT_EMAIL, GOOGLE_SITE_VERIFICATION, SITE_NAME, SITE_URL } from "./content";
 import { services, servicePath } from "./services-data";
 import { OG_IMAGE } from "./seo";
 import "./globals.css";
@@ -52,6 +53,7 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   category: "Cybersecurity",
+  ...(GOOGLE_SITE_VERIFICATION ? { verification: { google: GOOGLE_SITE_VERIFICATION } } : {}),
 };
 
 export const viewport: Viewport = {
@@ -101,7 +103,9 @@ const orgJsonLd = {
   ],
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  // Render every page per request so each one gets the CSP nonce from proxy.ts.
+  await connection();
   return (
     <html
       lang="en"

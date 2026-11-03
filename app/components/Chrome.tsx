@@ -135,7 +135,9 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="foot-base">
-          <span>© {new Date().getFullYear()} Ixonite · ixonit.com</span>
+          <span>
+            © {new Date().getFullYear()} Ixonite · ixonit.com · <Link href="/privacy/">Privacy policy</Link>
+          </span>
           <span>Testing only ever happens with written authorization from the system owner.</span>
         </div>
       </div>
