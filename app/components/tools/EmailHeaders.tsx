@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ArrowRight } from "../icons";
-import { SAMPLE, analyse, formatDelay } from "./emailHeaders";
+import { SAMPLE, analyse, formatDelay } from "./email-headers";
 import { ResultList } from "./results";
 
 type Out = ReturnType<typeof analyse>;
