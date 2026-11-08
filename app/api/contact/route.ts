@@ -66,23 +66,26 @@ export async function POST(request: Request) {
 
   console.log("[lead]", JSON.stringify({ type, email, subject }));
 
-  const { SMTP_USER, SMTP_PASS } = process.env;
+  const env = (k: string) => process.env[k]?.trim() || undefined;
+  const SMTP_USER = env("SMTP_USER");
+  const SMTP_PASS = process.env.SMTP_PASS;
   if (!SMTP_USER || !SMTP_PASS) {
     console.warn("[lead] SMTP_USER/SMTP_PASS not set; email not sent");
     return Response.json({ ok: false, error: "mail_not_configured" });
   }
 
   try {
-    const port = Number(process.env.SMTP_PORT ?? 465);
+    const port = Number(env("SMTP_PORT") ?? 465);
     const transport = nodemailer.createTransport({
-      host: process.env.SMTP_HOST ?? "smtp.hostinger.com",
+      host: env("SMTP_HOST") ?? "smtp.hostinger.com",
       port,
       secure: port === 465,
       auth: { user: SMTP_USER, pass: SMTP_PASS },
+      connectionTimeout: 15000,
     });
     await transport.sendMail({
       from: `Ixonite website <${SMTP_USER}>`,
-      to: process.env.MAIL_TO ?? "contact@ixonit.com",
+      to: env("MAIL_TO") ?? "contact@ixonit.com",
       replyTo: email,
       subject,
       text: lines.join("\n"),
@@ -90,6 +93,9 @@ export async function POST(request: Request) {
     return Response.json({ ok: true });
   } catch (e) {
     console.error("[lead] mail failed", e);
-    return Response.json({ ok: false, error: "mail_failed" });
+    // Short, secret-free reason (e.g. EAUTH 535, ETIMEDOUT, EDNS) to debug delivery.
+    const err = e as { code?: string; responseCode?: number; command?: string };
+    const reason = [err.code, err.responseCode, err.command].filter(Boolean).join(" ") || "unknown";
+    return Response.json({ ok: false, error: "mail_failed", reason });
   }
 }
